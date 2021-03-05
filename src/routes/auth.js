@@ -30,7 +30,7 @@ router.post("/sign-up", (req, res) => {
         expiresIn: "60 days",
       });
       res.cookie("nToken", token, { maxAge: 900000, httpOnly: true });
-      res.send(200);
+      res.status(200).send({ stauts: "Created Account Successfully" });;
     })
     .catch((err) => {
       console.log(err.message);
@@ -55,19 +55,19 @@ router.post("/login", (req, res) => {
           // Password does not match
           return res
             .status(401)
-            .send({ message: "Wrong Username or password" });
+            .send({ message: "Wrong Username or Password" });
         }
         // Create a token
         const token = jwt.sign(
           { _id: user._id, username: user.username },
-          process.env.SECRET,
+          process.env.JWT_SECRET,
           {
             expiresIn: "60 days",
           }
         );
         // Set a cookie and redirect to root
         res.cookie("nToken", token, { maxAge: 900000, httpOnly: true });
-        res.redirect("/");
+        return res.status(200).send({ status: "Logged in Successfully!" });
       });
     })
     .catch((err) => {
@@ -75,10 +75,11 @@ router.post("/login", (req, res) => {
     });
 });
 
+
 // LOGOUT
 router.get("/logout", (req, res) => {
   res.clearCookie("nToken");
-  res.redirect("/");
+  return res.status(200).send({ status: "Logged out Successfully!" });
 });
 
 module.exports = router;
