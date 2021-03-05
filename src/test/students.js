@@ -1,8 +1,13 @@
 const chai = require('chai');
+const mocha = require('mocha');
 const chaiHttp = require('chai-http');
 const server = require('../server');
 
-const should = chai.should();
+const { describe } = mocha;
+const { before } = mocha;
+const { after } = mocha;
+const { it } = mocha;
+
 const { expect } = chai;
 
 chai.use(chaiHttp);
@@ -28,7 +33,7 @@ describe('Students', () => {
       .post('/auth/sign-up')
       .set('content-type', 'application/x-www-form-urlencoded')
       .send(user)
-      .then((res) => {
+      .then(() => {
         done();
       })
       .catch((err) => {
@@ -55,7 +60,6 @@ describe('Students', () => {
                 expect(newDocCount).to.be.equal(initialDocCount + 1);
                 // Check that the body is an object
                 expect(res.body).to.be.an('object');
-                console.log(newStudent.id);
                 done();
               })
               .catch((err) => {
@@ -91,13 +95,13 @@ describe('Students', () => {
   });
   after((done) => {
     Student.findOneAndDelete(newStudent)
-      .then((res) => {
+      .then(() => {
         agent.close();
 
         User.findOneAndDelete({
           username: user.username,
         })
-          .then((res) => {
+          .then(() => {
             done();
           })
           .catch((err) => {
