@@ -4,20 +4,6 @@ const router = express.Router();
 
 const User = require("../models/user");
 
-// SIGN UP FORM
-router.get("/sign-up", (req, res) => {
-  var currentUser = req.user;
-
-  res.render("sign-up", { currentUser });
-});
-
-// LOGIN FORM
-router.get("/login", (req, res) => {
-  var currentUser = req.user;
-
-  res.render("login", { currentUser });
-});
-
 // SIGN UP POST
 router.post("/sign-up", (req, res) => {
   // Create User and JWT
@@ -30,7 +16,7 @@ router.post("/sign-up", (req, res) => {
         expiresIn: "60 days",
       });
       res.cookie("nToken", token, { maxAge: 900000, httpOnly: true });
-      res.status(200).send({ stauts: "Created Account Successfully" });;
+      res.status(200).send({ status: "Created Account Successfully" });
     })
     .catch((err) => {
       console.log(err.message);
@@ -53,9 +39,7 @@ router.post("/login", (req, res) => {
       user.comparePassword(password, (err, isMatch) => {
         if (!isMatch) {
           // Password does not match
-          return res
-            .status(401)
-            .send({ message: "Wrong Username or Password" });
+          return res.status(401).send({ message: "Wrong Username or Password" });
         }
         // Create a token
         const token = jwt.sign(
