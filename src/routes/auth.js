@@ -12,15 +12,15 @@ router.post('/sign-up', (req, res) => {
 
   user
     .save()
-    .then((user) => {
-      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+    .then(() => {
+      const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET, {
         expiresIn: '60 days',
       });
       res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
       res.status(200).send({ status: 'Created Account Successfully' });
     })
     .catch((err) => {
-      console.log(err.message);
+      res.error(err.message);
       return res.status(400).send({ err });
     });
 });
@@ -46,7 +46,7 @@ router.post('/login', (req, res) => {
         }
         // Create a token
         const token = jwt.sign(
-          { _id: user._id, username: user.username },
+          { _id: user.id, username: user.username },
           process.env.JWT_SECRET,
           {
             expiresIn: '60 days',
@@ -56,9 +56,10 @@ router.post('/login', (req, res) => {
         res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
         return res.status(200).send({ status: 'Logged in Successfully!' });
       });
+      return 1;
     })
     .catch((err) => {
-      console.log(err);
+      res.error(err);
     });
 });
 
