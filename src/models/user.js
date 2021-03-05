@@ -1,6 +1,7 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+
+const { Schema } = mongoose;
 
 const UserSchema = new Schema(
   {
@@ -8,17 +9,17 @@ const UserSchema = new Schema(
     updatedAt: { type: Date },
     password: { type: String, select: false },
     username: { type: String, required: true },
-    posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
-    comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
+    posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   },
-  { timestamps: { createdAt: "created_at" } }
+  { timestamps: { createdAt: 'created_at' } },
 );
 
 // Must use function here! ES6 => functions do not bind this!
-UserSchema.pre("save", function (next) {
+UserSchema.pre('save', function (next) {
   // ENCRYPT PASSWORD
   const user = this;
-  if (!user.isModified("password")) {
+  if (!user.isModified('password')) {
     return next();
   }
   bcrypt.genSalt(10, (err, salt) => {
@@ -36,4 +37,4 @@ UserSchema.methods.comparePassword = function (password, done) {
   });
 };
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model('User', UserSchema);

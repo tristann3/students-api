@@ -1,39 +1,40 @@
-const chai = require("chai");
-const chaiHttp = require("chai-http");
-const server = require("../server");
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const server = require('../server');
+
 const should = chai.should();
 chai.use(chaiHttp);
 
 // Agent that will keep track of our cookies
 const agent = chai.request.agent(server);
 
-const User = require("../models/user");
+const User = require('../models/user');
 
-describe("User", function () {
+describe('User', () => {
   // login
-  it("should not be able to login if they have not registered", function (done) {
+  it('should not be able to login if they have not registered', (done) => {
     agent
-      .post("/auth/login", { username: "wrong@wrong.com", password: "nope" })
-      .end(function (err, res) {
+      .post('/auth/login', { username: 'wrong@wrong.com', password: 'nope' })
+      .end((err, res) => {
         res.status.should.be.equal(401);
         done();
       });
   });
   // signup
-  it("should be able to signup", function (done) {
-    User.findOneAndRemove({ username: "testone" }, function () {
+  it('should be able to signup', (done) => {
+    User.findOneAndRemove({ username: 'testone' }, () => {
       agent
-        .post("/auth/sign-up")
-        .send({ username: "testone", password: "password" })
-        .end(function (err, res) {
+        .post('/auth/sign-up')
+        .send({ username: 'testone', password: 'password' })
+        .end((err, res) => {
           console.log(res.body);
           res.should.have.status(200);
-          agent.should.have.cookie("nToken");
+          agent.should.have.cookie('nToken');
           done();
         });
     });
   });
-  after(function () {
+  after(() => {
     agent.close();
   });
 });

@@ -47,12 +47,6 @@ The Student model has first_name and last_name fields
   curl -X POST -H "Content-Type: application/json" -d '{"last_name":"Luke", "last_name":"Skywalker"}' http://localhost:3000/students/delete
   ```
 
-### Seeing Student Info
-  - The Student Info route lives at /students/info
-  ```
-  curl -X GET -H "Content-Type: application/json" -d '{id:"1"}' http://localhost:3000/students/info
-  ```
-
 ## Professors
 ### Adding a Professor
 ### Deleting a Professor
