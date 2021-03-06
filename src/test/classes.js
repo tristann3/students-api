@@ -53,10 +53,10 @@ describe('Classes', () => {
   });
   it('Should get all classes', (done) => {
     agent
-      .get('/classes')
+      .get('/classes/')
       .then((res) => {
         expect(res).to.have.status(200);
-        expect(res.body).to.be.an('array');
+        expect(res.body.classes).to.be.an('array');
         done();
       });
   });
