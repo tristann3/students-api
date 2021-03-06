@@ -44,14 +44,17 @@ The Professor model has first_name and last_name fields
 ### Deleting a Professor
 - The Delete Professor route lives at /professors/:id/delete
   ```
-  curl -X POST -H "Content-Type: application/json" -d '{"last_name":"Luke", "last_name":"Skywalker"}' http://localhost:3000/proffessors/delete
+  curl -X POST -H "Content-Type: application/json" -d '{"first_name":"Luke", "last_name":"Skywalker"}' http://localhost:3000/professors/delete
   ```
 ### Getting all Professors
 - The Delete Professor route lives at /professors
-  - Because cUrl cannot track logged in users, you must use another form of 
+  - Because cUrl cannot track logged in users, you must use another form of getting endpoints
 
 ### Updating a Professor
 - The Update route lives at /professors/:id/update
+  ```
+  curl -X POST -H "Content-Type: application/json" -d '{"first_name":"Luke", "last_name":"Skywalker2"}' http://localhost:3000/professors/delete
+  ```
 
 
 ## Classes
