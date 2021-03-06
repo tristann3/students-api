@@ -13,7 +13,7 @@ router.post('/new', (req, res) => {
         res.send({ status: 200, message: 'Professor created Successfully!' });
       })
       .catch((err) => {
-        res.error(err.message);
+        res.send(err.message);
       });
   } else {
     return res.status(401); // UNAUTHORIZED
