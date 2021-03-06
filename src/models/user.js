@@ -23,11 +23,12 @@ UserSchema.pre('save', function (next) {
     return next();
   }
   bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(user.password, salt, (err, hash) => {
+    bcrypt.hash(user.password, salt, (hash) => {
       user.password = hash;
       next();
     });
   });
+  return 1;
 });
 
 // Need to use function to enable this.password to work.

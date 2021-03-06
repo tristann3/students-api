@@ -1,8 +1,12 @@
 const chai = require('chai');
+const mocha = require('mocha');
 const chaiHttp = require('chai-http');
 const server = require('../server');
 
-const should = chai.should();
+const { describe } = mocha;
+const { after } = mocha;
+const { it } = mocha;
+
 chai.use(chaiHttp);
 
 // Agent that will keep track of our cookies
@@ -27,7 +31,6 @@ describe('User', () => {
         .post('/auth/sign-up')
         .send({ username: 'testone', password: 'password' })
         .end((err, res) => {
-          console.log(res.body);
           res.should.have.status(200);
           agent.should.have.cookie('nToken');
           done();

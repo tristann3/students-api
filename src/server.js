@@ -19,14 +19,12 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// app.use(expressValidator());
+app.use(expressValidator());
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 const checkAuth = (req, res, next) => {
-  console.log('Checking authentication');
-  console.log(req.cookies);
   if (
     typeof req.cookies.nToken === 'undefined'
     || req.cookies.nToken === null
@@ -36,7 +34,6 @@ const checkAuth = (req, res, next) => {
     const token = req.cookies.nToken;
     const decodedToken = jwt.decode(token, { complete: true }) || {};
     req.user = decodedToken.payload;
-    console.log('Successfully Authenticated');
   }
 
   next();
@@ -47,9 +44,5 @@ app.use(checkAuth);
 const router = require('./routes/index.js');
 
 app.use(router);
-
-app.listen(process.env.PORT, () => {
-  console.log(`Listening on port ${process.env.PORT}!`);
-});
 
 module.exports = app;
