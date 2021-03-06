@@ -76,7 +76,7 @@ describe('Classes', () => {
         done(err);
       });
   });
-  it('Should create a new Class at POST classes/new', (done) => {
+  it('Should create a new Class', (done) => {
     Class.estimatedDocumentCount()
       .then((initialDocCount) => {
         agent

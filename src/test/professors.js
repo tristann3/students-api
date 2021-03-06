@@ -65,7 +65,7 @@ describe('Professors', () => {
         done(err);
       });
   });
-  it('Should create a new professor at POST professors/new', (done) => {
+  it('Should create a new professor', (done) => {
     Professor.estimatedDocumentCount()
       .then((initialDocCount) => {
         agent

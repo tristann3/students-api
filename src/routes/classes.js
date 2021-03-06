@@ -28,7 +28,10 @@ router.get('/', (req, res) => {
       .then((classes) => {
         res.send({ status: 200, classes });
       });
+  } else {
+    return res.status(401); // UNAUTHORIZED
   }
+  return 1;
 });
 router.delete('/:id/delete', (req, res) => {
   if (req.user) {
@@ -36,7 +39,10 @@ router.delete('/:id/delete', (req, res) => {
       .then(() => {
         res.send({ status: 200, message: 'Class deleted Successfully!' });
       });
+  } else {
+    return res.status(401); // UNAUTHORIZED
   }
+  return 1;
 });
 
 module.exports = router;
