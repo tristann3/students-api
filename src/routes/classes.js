@@ -30,5 +30,13 @@ router.get('/', (req, res) => {
       });
   }
 });
+router.delete('/:id/delete', (req, res) => {
+  if (req.user) {
+    Class.findByIdAndDelete(req.id)
+      .then(() => {
+        res.send({ status: 200, message: 'Class deleted Successfully!' });
+      });
+  }
+});
 
 module.exports = router;

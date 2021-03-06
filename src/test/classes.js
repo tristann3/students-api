@@ -26,6 +26,7 @@ const newProfessor = {
   classes: [],
 };
 const newClass = {
+  _id: '4edd40c86762e0fb12000003',
   name: 'BEW 1.2',
   professor: '5d6ede6a0ba62570afcedd3a',
 };
@@ -60,6 +61,21 @@ describe('Classes', () => {
         done();
       });
   });
+  it('Should delete a class', (done) => {
+    agent
+      .post('/classes/new')
+      .set('content-type', 'application/x-www-form-urlencoded')
+      .send(newClass)
+      .then((res) => agent
+        .delete('/classes/5d6ede6a0ba62570arcedd3a/delete'))
+      .then((res) => {
+        expect(res).to.have.status(200);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
   it('Should create a new Class at POST classes/new', (done) => {
     Class.estimatedDocumentCount()
       .then((initialDocCount) => {
@@ -78,10 +94,12 @@ describe('Classes', () => {
               .catch((err) => {
                 done(err);
               });
+            done();
           })
           .catch((err) => {
             done(err);
           });
+        done();
       })
       .catch((err) => {
         done(err);
