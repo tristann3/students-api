@@ -20,5 +20,15 @@ router.post('/new', (req, res) => {
   }
   return 1;
 });
+router.get('/', (req, res) => {
+  if (req.user) {
+    Professor.find({})
+      .lean()
+      .populate('classes')
+      .then((professors) => {
+        res.send({ status: 200, professors });
+      });
+  }
+});
 
 module.exports = router;

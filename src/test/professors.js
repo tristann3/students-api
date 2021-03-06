@@ -41,6 +41,15 @@ describe('Professors', () => {
         done(err);
       });
   });
+  it('Should get all professors', (done) => {
+    agent
+      .get('/professors/')
+      .then((res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.professors).to.be.an('array');
+        done();
+      });
+  });
   it('Should create a new professor at POST professors/new', (done) => {
     Professor.estimatedDocumentCount()
       .then((initialDocCount) => {
