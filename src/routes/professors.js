@@ -6,14 +6,11 @@ const Professor = require('../models/professor');
 
 router.post('/new', (req, res) => {
   if (req.user) {
-    // INSTANTIATE INSTANCE OF POST MODEL
     const professor = new Professor(req.body);
-
-    // SAVE INSTANCE OF POST MODEL TO DB
     professor
       .save()
       .then(() => {
-        res.status(200).send({ status: 'Professor created Successfully!' });
+        res.send({ status: 200, message: 'Professor created Successfully!' });
       })
       .catch((err) => {
         res.error(err.message);
