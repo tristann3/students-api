@@ -6,6 +6,7 @@ const server = require('../server');
 const { describe } = mocha;
 const { after } = mocha;
 const { it } = mocha;
+const { should } = chai.should();
 
 chai.use(chaiHttp);
 
