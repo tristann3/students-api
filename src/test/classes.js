@@ -51,6 +51,15 @@ describe('Classes', () => {
         done(err);
       });
   });
+  it('Should get all classes', (done) => {
+    agent
+      .get('/classes')
+      .then((res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('array');
+        done();
+      });
+  });
   it('Should create a new Class at POST classes/new', (done) => {
     Class.estimatedDocumentCount()
       .then((initialDocCount) => {
