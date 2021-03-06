@@ -21,8 +21,15 @@ const User = require('../models/user');
 
 describe('Professors', () => {
   const newProfessor = {
+    _id: '5d6ede6a0ba62570afcedd3a',
     first_name: 'Tristan',
     last_name: 'Thompson',
+    classes: [],
+  };
+  const updatedProfessor = {
+    _id: '5d6ede6a0ba62570afcedd3a',
+    first_name: 'Tristan',
+    last_name: 'Thompson2',
     classes: [],
   };
   const user = {
@@ -48,21 +55,6 @@ describe('Professors', () => {
         expect(res).to.have.status(200);
         expect(res.body.professors).to.be.an('array');
         done();
-      });
-  });
-  it('Should delete a professor', (done) => {
-    agent
-      .post('/professors/new')
-      .set('content-type', 'application/x-www-form-urlencoded')
-      .send(newProfessor)
-      .then((res) => agent
-        .delete('/professors/5d6ede6a0ba62570arcedd3a/delete'))
-      .then((res) => {
-        expect(res).to.have.status(200);
-        done();
-      })
-      .catch((err) => {
-        done(err);
       });
   });
   it('Should create a new professor', (done) => {
@@ -91,6 +83,34 @@ describe('Professors', () => {
       .catch((err) => {
         done(err);
       });
+  });
+  it('Should delete a professor', (done) => {
+    agent
+      .post('/professors/new')
+      .set('content-type', 'application/x-www-form-urlencoded')
+      .send(newProfessor)
+      .then((res) => agent
+        .delete('/professors/5d6ede6a0ba62570arcedd3a/delete'))
+      .then((res) => {
+        expect(res).to.have.status(200);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+  it('Should update a professor', (done) => {
+    agent
+      .put('/professors/5d6ede6a0ba62570afcedd3a')
+      .set('content-type', 'application/x-www-form-urlencoded')
+      .send(newProfessor)
+      .then((res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.last_name).to.be.equal('Thompson2');
+        done();
+      });
+    done();
   });
   after((done) => {
     Professor.findOneAndDelete(newProfessor)

@@ -45,5 +45,21 @@ router.delete('/:id/delete', (req, res) => {
   }
   return 1;
 });
+router.put('/:id', (req, res) => {
+  const updatedProfessor = Professor;
+  if (req.user) {
+    Professor.findById(req.id)
+      .then((professor) => {
+        updatedProfessor.first_name = professor.first_name;
+        updatedProfessor.last_name = professor.last_name;
+        updatedProfessor.classes = professor.classes;
+        professor.save();
+        res.send({ status: 200, message: 'Professor deleted Successfully!' });
+      });
+  } else {
+    return res.status(401); // UNAUTHORIZED
+  }
+  return 1;
+});
 
 module.exports = router;
