@@ -50,6 +50,21 @@ describe('Professors', () => {
         done();
       });
   });
+  it('Should delete a professor', (done) => {
+    agent
+      .post('/professors/new')
+      .set('content-type', 'application/x-www-form-urlencoded')
+      .send(newProfessor)
+      .then((res) => agent
+        .delete('/professors/5d6ede6a0ba62570arcedd3a/delete'))
+      .then((res) => {
+        expect(res).to.have.status(200);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
   it('Should create a new professor at POST professors/new', (done) => {
     Professor.estimatedDocumentCount()
       .then((initialDocCount) => {
