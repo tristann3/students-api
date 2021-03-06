@@ -4,7 +4,7 @@ This students API will allow for Users to CRUD Classes, Students and Professors 
 
 This documentation will illustrade the features of the app which include adding, deleting and modifying information YOU enter as a test user :)
 
-# Notes:
+# Notes
   - Until this project is deployed live, you can access all endpoints at localhost:3000
   - All endpoints require you to be logged in.
 
