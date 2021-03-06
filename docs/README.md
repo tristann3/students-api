@@ -31,22 +31,6 @@ The User model has username and password fields
   curl -X GET -H "Content-Type: application/json" -d '{"username":"example", "password":"examplePassword"}' http://localhost:3000/auth/logout
   ```
 
-## Students
-
-The Student model has first_name and last_name fields
-
-### Adding a Student
-  - The Add Student route lives at /students/new
-  ```
-  curl -X POST -H "Content-Type: application/json" -d '{"first_name":"Bob", "last_name":"Papadopoulos"}' http://localhost:3000/students/new
-  ```
-
-### Deleting a Student
-  - The Delete Student route lives at /students/delete
-  ```
-  curl -X POST -H "Content-Type: application/json" -d '{"last_name":"Luke", "last_name":"Skywalker"}' http://localhost:3000/students/delete
-  ```
-
 ## Professors
 
 The Professor model has first_name and last_name fields
